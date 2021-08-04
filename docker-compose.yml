@@ -57,8 +57,6 @@ networks:
     driver: bridge
   dbnet:
     driver: bridge
-  traefik:
-    external: true
 #Volumes
 volumes:
   dbdata:
