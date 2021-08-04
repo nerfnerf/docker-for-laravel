@@ -6,45 +6,39 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: php:7.4-fpm
-    container_name: app
     restart: unless-stopped
-    tty: true
-    ports:
-      - "8000:8000"
     environment:
       SERVICE_NAME: app
       SERVICE_TAGS: dev
+      DB_HOST: db
+      APP_KEY:
+      DB_DATABASE: laravel
+      DB_USERNAME: laravel
+      DB_PASSWORD: laravel
+      DB_PORT: 3306
     working_dir: /var/www
-    volumes:
-      - ./:/var/www
     networks:
       - app-network
-
+      - dbnet
 
   #Nginx Service
   webserver:
     image: nginx:alpine
-    container_name: webserver
     restart: unless-stopped
-    tty: true
-    ports:
-      - "80:80"
-      - "443:443"
     volumes:
       - ./:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
+    ports:
+      - 80:80
+      - 443:443
+
 
   #MySQL Service
   db:
-    image: mysql:5.7.22
-    container_name: db
+    image: mysql:latest
     restart: unless-stopped
-    tty: true
-    ports:
-      - "3306:3306"
     environment:
       MYSQL_DATABASE: laravel
       MYSQL_ROOT_PASSWORD: root_pw
@@ -55,12 +49,16 @@ services:
     volumes:
       - dbdata:/var/lib/mysql/
     networks:
-      - app-network
+      - dbnet
 
 #Docker Networks
 networks:
   app-network:
     driver: bridge
+  dbnet:
+    driver: bridge
+  traefik:
+    external: true
 #Volumes
 volumes:
   dbdata:
