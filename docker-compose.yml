@@ -26,7 +26,6 @@ services:
     image: nginx:alpine
     restart: unless-stopped
     volumes:
-      - ./:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
