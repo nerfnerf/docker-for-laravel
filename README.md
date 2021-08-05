@@ -1,6 +1,6 @@
 # docker-for-laravel
 
-Add to most Laravel applications
+Add to root dir of most Laravel applications
 
 sudo apt-get install docker
 
