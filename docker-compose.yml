@@ -11,22 +11,22 @@ services:
       SERVICE_NAME: app
       SERVICE_TAGS: dev
       DB_HOST: db
-      APP_KEY:
+      APP_KEY: "PUT APP KEY HERE "
       DB_DATABASE: laravel
       DB_USERNAME: laravel
       DB_PASSWORD: laravel
       DB_PORT: 3306
+      APP_PORT: 9000 
     working_dir: /var/www
     networks:
       - app-network
       - dbnet
-
   #Nginx Service
   webserver:
-    image: nginx:alpine
+    build:
+      context: .
+      dockerfile: nginxDockerfile
     restart: unless-stopped
-    volumes:
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
     ports:
