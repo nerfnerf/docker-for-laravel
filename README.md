@@ -15,6 +15,6 @@ REMOVE base64: and the first 13 characters before it, put into " " and add a spa
 
 docker-compose up
 
-docker exec ${FOLDERNAME}_app_1 php artisan migrate:fresh --force
-
 app runs in docker at 127.0.0.1:80
+
+change dm migration in migrate.sh if you have inital date in DB
