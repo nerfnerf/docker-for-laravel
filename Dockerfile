@@ -41,4 +41,4 @@ RUN chmod -R guo+w storage
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 
-CMD ["php-fpm"]
+CMD ["/var/www/migrate.sh"]
